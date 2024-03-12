@@ -20,6 +20,15 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Check1
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
+      - name: Check2
+        run: |
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+          echo "Previous tag: $TAG"
+
       - name: Check files
         run: |
           if [ ! -f ${{ env.SOURCE_DIR }}/${{ env.PROJECT_FILE_NAME }}.pro ]; then
@@ -34,7 +43,7 @@ jobs:
             echo "Icon file not found"
             exit 1
           fi
-          
+
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
           echo "Previous tag: $TAG"
