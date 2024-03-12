@@ -20,17 +20,6 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Check2
-        run: |
-          git fetch --depth=1 origin --tags
-          if git rev-list --tags --max-count=1 | xargs git describe --tags --abbrev=0 --always --first-parent 2>/dev/null; then
-            TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
-            echo "Previous tag: $TAG"
-          else
-            TAG="v1.0.0"
-            echo "No tags found, setting tag to: $TAG"
-          fi
-
       - name: Check files
         run: |
           if [ ! -f ${{ env.SOURCE_DIR }}/${{ env.PROJECT_FILE_NAME }}.pro ]; then
