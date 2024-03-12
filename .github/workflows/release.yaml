@@ -81,7 +81,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: application-ubuntu
-          path: ${{ runner.temp }}/build/{{ env.PROJECT_FILE_NAME }}-x86_64.AppImage
+          path: ${{ runner.temp }}/build/${{ env.PROJECT_FILE_NAME }}-x86_64.AppImage
 
   build-windows:
     needs: [env-check]
@@ -132,13 +132,13 @@ jobs:
       - name: Zip build
         working-directory: ${{ runner.temp }}
         run:  |
-              7z a {{ env.PROJECT_FILE_NAME }}-Win-X86_64.zip ${{ runner.temp }}\build\release\* -r
+              7z a ${{ env.PROJECT_FILE_NAME }}-Win-X86_64.zip ${{ runner.temp }}\build\release\* -r
 
       - name: Save build artifact
         uses: actions/upload-artifact@master
         with:
           name: application-windows
-          path: ${{ runner.temp }}\{{ env.PROJECT_FILE_NAME }}-Win-X86_64.zip
+          path: ${{ runner.temp }}\${{ env.PROJECT_FILE_NAME }}-Win-X86_64.zip
 
   release:
     needs: [build-ubuntu, build-windows]
@@ -196,6 +196,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: application-windows/{{ env.PROJECT_FILE_NAME }}-Win-X86_64.zip
+          asset_path: application-windows/${{ env.PROJECT_FILE_NAME }}-Win-X86_64.zip
           asset_name: ${{ env.PROJECT_FILE_NAME }}-Win-X86_64.zip
           asset_content_type: application/vnd.ms-windows
