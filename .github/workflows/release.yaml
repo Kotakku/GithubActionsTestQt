@@ -25,7 +25,7 @@ jobs:
 
       - name: Check2
         run: |
-          run: git fetch --depth=1 origin --tags
+          git fetch --depth=1 origin --tags
           TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
           echo "Previous tag: $TAG"
 
@@ -44,7 +44,7 @@ jobs:
             exit 1
           fi
 
-          run: git fetch --depth=1 origin --tags
+          git fetch --depth=1 origin --tags
           TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
           echo "Previous tag: $TAG"
           
