@@ -21,7 +21,7 @@ jobs:
           submodules: recursive
 
       - name: Check1
-        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+        run: git fetch origin --tags
 
       - name: Check2
         run: |
