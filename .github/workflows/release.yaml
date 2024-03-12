@@ -21,11 +21,11 @@ jobs:
           submodules: recursive
 
       - name: Check1
-        run: git fetch origin --tags
+        run: git fetch --depth=1 origin --tags
 
       - name: Check2
         run: |
-          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          run: git fetch --depth=1 origin --tags
           TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
           echo "Previous tag: $TAG"
 
@@ -44,7 +44,7 @@ jobs:
             exit 1
           fi
 
-          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          run: git fetch --depth=1 origin --tags
           TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
           echo "Previous tag: $TAG"
           
